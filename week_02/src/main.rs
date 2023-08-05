@@ -45,13 +45,6 @@ fn main() {
         .trim()
         .parse()
         .expect("Error while parsing operation!");
-    let operation_number = match operation {
-        1 => Operation::Add,
-        2 => Operation::Subtract,
-        3 => Operation::Multiply,
-        4 => Operation::Divide,
-        _ => panic!("Invalid operation!"),
-    };
 
     println!("\nPlease type your second number:");
     let mut second_number = String::new();
@@ -64,10 +57,16 @@ fn main() {
         .expect("Error while parsing second number!");
 
     // Create an Operation enum instance with the parsed input values.
-    let operation = operation_number(first_number, second_number);
+    let operation_enum = match operation {
+        1 => Operation::Add(first_number, second_number),
+        2 => Operation::Subtract(first_number, second_number),
+        3 => Operation::Multiply(first_number, second_number),
+        4 => Operation::Divide(first_number, second_number),
+        _ => panic!("Invalid operation!"),
+    };
 
     // Call the calculate function with the created Operation enum instance.
-    let result = calculate(operation);
+    let result = calculate(operation_enum);
 
     // Print the result to the console.
     println!("Result: {result}");
